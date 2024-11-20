@@ -77,7 +77,7 @@ class MenuOptionsScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 50),
               const Text(
                 'Achievements',
                 style: TextStyle(
@@ -101,8 +101,8 @@ class MenuOptionsScreen extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Container(
-        width: 120,
-        height: 120,
+        width: 100,
+        height: 100,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           boxShadow: [
