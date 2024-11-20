@@ -82,7 +82,7 @@ class MenuOptionsScreen extends StatelessWidget {
                 'Achievements',
                 style: TextStyle(
                   fontFamily: 'Montserrat',
-                  fontSize: 24,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
