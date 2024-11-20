@@ -1,7 +1,71 @@
 import 'package:flutter/material.dart';
+import 'package:g12_glovo/screens/screens.dart';
 
-class MenuOptionsScreen extends StatelessWidget {
+class MenuOptionsScreen extends StatefulWidget {
   const MenuOptionsScreen({super.key});
+
+  @override
+  State<MenuOptionsScreen> createState() => _MenuOptionsScreenState();
+}
+
+class _MenuOptionsScreenState extends State<MenuOptionsScreen>
+    with TickerProviderStateMixin {
+  late AnimationController _controller1;
+  late AnimationController _controller2;
+  late AnimationController _controller3;
+
+  void _startAnimationSequence() {
+    // Primero reseteamos todos los controladores
+    _controller1.reset();
+    _controller2.reset();
+    _controller3.reset();
+
+    // Luego iniciamos la secuencia
+    _controller1.forward().then((_) {
+      _controller2.forward().then((_) {
+        _controller3.forward();
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller1 = AnimationController(
+      duration: const Duration(milliseconds: 550),
+      vsync: this,
+    );
+
+    _controller2 = AnimationController(
+      duration: const Duration(milliseconds: 250),
+      vsync: this,
+    );
+
+    _controller3 = AnimationController(
+      duration: const Duration(milliseconds: 250),
+      vsync: this,
+    );
+
+    _startAnimationSequence();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Reiniciar animaciones cuando la ruta cambia
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _startAnimationSequence();
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller1.dispose();
+    _controller2.dispose();
+    _controller3.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,25 +119,57 @@ class MenuOptionsScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _buildImageButton(
-                context,
-                'assets/buttons/badges.png',
-                () {/* Acción para botón 1 */},
+              ScaleTransition(
+                scale: _controller1,
+                child: _buildImageButton(
+                  context,
+                  'assets/buttons/badges.png',
+                  () => Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                          const BadgesScreen(),
+                      transitionDuration: Duration.zero,
+                    ),
+                  ).then((_) => _startAnimationSequence()),
+                ),
               ),
               const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildImageButton(
-                    context,
-                    'assets/buttons/album.png',
-                    () {/* Acción para botón 2 */},
+                  ScaleTransition(
+                    scale: _controller2,
+                    child: _buildImageButton(
+                      context,
+                      'assets/buttons/album.png',
+                      () => Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  const AlbumScreen(),
+                          transitionDuration: Duration.zero,
+                        ),
+                      ).then((_) => _startAnimationSequence()),
+                    ),
                   ),
                   const SizedBox(width: 20),
-                  _buildImageButton(
-                    context,
-                    'assets/buttons/ranking.png',
-                    () {/* Acción para botón 3 */},
+                  ScaleTransition(
+                    scale: _controller3,
+                    child: _buildImageButton(
+                      context,
+                      'assets/buttons/ranking.png',
+                      () => Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  const RankingScreen(),
+                          transitionDuration: Duration.zero,
+                        ),
+                      ).then((_) => _startAnimationSequence()),
+                    ),
                   ),
                 ],
               ),
@@ -82,7 +178,7 @@ class MenuOptionsScreen extends StatelessWidget {
                 'Achievements',
                 style: TextStyle(
                   fontFamily: 'Montserrat',
-                  fontSize: 20,
+                  fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -105,6 +201,10 @@ class MenuOptionsScreen extends StatelessWidget {
         height: 100,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
+          border: Border.all(
+            color: Colors.orange,
+            width: 3,
+          ),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.2),
