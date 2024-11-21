@@ -8,33 +8,47 @@ class RankingScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.clear_rounded),
           onPressed: () => Navigator.of(context).pop(),
         ),
+        centerTitle: true,
         title: const Text(
           'Ranking',
           style: TextStyle(
+            color: Colors.white,
             fontFamily: 'Montserrat',
             fontSize: 20,
           ),
         ),
-        backgroundColor: const Color.fromRGBO(255, 194, 68, 1),
+        backgroundColor: const Color.fromARGB(255, 112, 95, 212),
       ),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: RadialGradient(
-            center: Alignment.center,
-            radius: 0.5,
-            colors: [
-              Color.fromRGBO(255, 233, 176, 1),
-              Color.fromRGBO(255, 194, 68, 1),
-            ],
-            stops: [0.0, 1.0],
+      body: Column(
+        children: [
+          Container(
+            height:
+                MediaQuery.of(context).size.height * 0.25, // 35% de la altura
+            color: const Color.fromARGB(
+                255, 112, 95, 212), // Mismo color que AppBar
+            child: const Center(
+              child: Text(
+                'Ranking for December',
+                style: TextStyle(color: Colors.white, fontSize: 35),
+              ),
+            ),
           ),
-        ),
-        child: const Center(
-          child: Text('Ranking Content'),
-        ),
+          Expanded(
+            // Resto de la pantalla
+            child: Container(
+              color: Colors.black,
+              child: const Center(
+                child: Text(
+                  'Ranking (widget)',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
