@@ -5,36 +5,105 @@ class AlbumScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Lista de rutas de imágenes
+    final List<String> imagePaths = [
+      'assets/images/locked.png',
+      'assets/images/locked.png',
+      'assets/images/locked.png',
+      'assets/images/dominos.png',
+      'assets/images/locked.png',
+      'assets/images/locked.png',
+      'assets/images/locked.png',
+      'assets/images/locked.png',
+      'assets/images/locked.png',
+      'assets/images/locked.png',
+      'assets/images/locked.png',
+      'assets/images/locked.png',
+      'assets/images/goiko.png',
+      'assets/images/locked.png',
+      'assets/images/mcdo.png',
+      'assets/images/locked.png',
+      'assets/images/locked.png',
+      'assets/images/locked.png',
+      'assets/images/locked.png',
+      'assets/images/locked.png',
+      'assets/images/locked.png',
+      'assets/images/locked.png',
+      'assets/images/locked.png',
+      'assets/images/locked.png',
+    ];
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
+          color: Colors.white,
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: const Text(
-          'Album',
+          'Els meus restaurants',
           style: TextStyle(
             fontFamily: 'Montserrat',
             fontSize: 20,
+            color: Colors.white,
           ),
         ),
-        backgroundColor: const Color.fromRGBO(255, 194, 68, 1),
+        backgroundColor: Colors.black,
       ),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: RadialGradient(
-            center: Alignment.center,
-            radius: 0.5,
-            colors: [
-              Color.fromRGBO(255, 233, 176, 1),
-              Color.fromRGBO(255, 194, 68, 1),
-            ],
-            stops: [0.0, 1.0],
+      body: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image:
+                    AssetImage('assets/images/fusta.png'), // Ruta de tu imagen
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
-        ),
-        child: const Center(
-          child: Text('Album Content'),
-        ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Center(
+                  child: Text(
+                    'ÀLBUM',
+                    style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontSize: 50,
+                      color: Colors.grey[300],
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: GridView.builder(
+                  padding: const EdgeInsets.all(16.0),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4, // Número de columnas
+                    crossAxisSpacing: 10.0,
+                    mainAxisSpacing: 10.0,
+                  ),
+                  itemCount: imagePaths.length, // Número total de fotos
+                  itemBuilder: (context, index) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(
+                              imagePaths[index]), // Ruta de tus imágenes
+                          fit: BoxFit.cover,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

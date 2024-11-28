@@ -123,7 +123,7 @@ class _MenuOptionsScreenState extends State<MenuOptionsScreen>
                 scale: _controller1,
                 child: _buildImageButton(
                   context,
-                  'assets/buttons/badges.png',
+                  'assets/images/badges.png',
                   () => Navigator.push(
                     context,
                     PageRouteBuilder(
@@ -142,7 +142,7 @@ class _MenuOptionsScreenState extends State<MenuOptionsScreen>
                     scale: _controller2,
                     child: _buildImageButton(
                       context,
-                      'assets/buttons/album.png',
+                      'assets/images/album.png',
                       () => Navigator.push(
                         context,
                         PageRouteBuilder(
@@ -159,7 +159,7 @@ class _MenuOptionsScreenState extends State<MenuOptionsScreen>
                     scale: _controller3,
                     child: _buildImageButton(
                       context,
-                      'assets/buttons/ranking.png',
+                      'assets/images/ranking.png',
                       () => Navigator.push(
                         context,
                         PageRouteBuilder(
