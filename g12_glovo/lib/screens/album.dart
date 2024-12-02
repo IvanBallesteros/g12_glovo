@@ -16,16 +16,16 @@ class AlbumScreen extends StatelessWidget {
       'assets/images/locked.png',
       'assets/images/locked.png',
       'assets/images/locked.png',
-      'assets/images/locked.png',
-      'assets/images/locked.png',
-      'assets/images/locked.png',
       'assets/images/goiko.png',
       'assets/images/locked.png',
+      'assets/images/locked.png',
+      'assets/images/locked.png',
+      'assets/images/locked.png',
+      'assets/images/locked.png',
+      'assets/images/locked.png',
+      'assets/images/locked.png',
+      'assets/images/locked.png',
       'assets/images/mcdo.png',
-      'assets/images/locked.png',
-      'assets/images/locked.png',
-      'assets/images/locked.png',
-      'assets/images/locked.png',
       'assets/images/locked.png',
       'assets/images/locked.png',
       'assets/images/locked.png',
@@ -55,8 +55,8 @@ class AlbumScreen extends StatelessWidget {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image:
-                    AssetImage('assets/images/fusta.png'), // Ruta de tu imagen
+                image: AssetImage(
+                    'assets/images/gradientyellow.jpg'), // Ruta de tu imagen
                 fit: BoxFit.cover,
               ),
             ),
@@ -64,15 +64,15 @@ class AlbumScreen extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(16.0),
+              const Padding(
+                padding: EdgeInsets.all(24.0),
                 child: Center(
                   child: Text(
                     'ÀLBUM',
                     style: TextStyle(
                       fontFamily: 'Montserrat',
                       fontSize: 50,
-                      color: Colors.grey[300],
+                      color: Colors.black,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
