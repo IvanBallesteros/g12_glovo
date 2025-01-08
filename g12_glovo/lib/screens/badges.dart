@@ -22,7 +22,7 @@ class _BadgesScreenState extends State<BadgesScreen> {
 
   Future<void> _loadUserData() async {
     final String jsonString =
-        await rootBundle.loadString('lib/json/usersInfo.JSON');
+        await rootBundle.loadString('lib/json/comercios.JSON');
     setState(() {
       _userData = json.decode(jsonString);
     });
