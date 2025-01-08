@@ -1,4 +1,4 @@
- {
+ {  "comercios": {
           "Restaurants": [
             "mcdo",
             "burgerking",
@@ -25,7 +25,7 @@
           ],
           "Botigues": [
             "decathlon",
-            "dominos",
+            "drim",
             "druni",
             "flyingtiger",
             "fnac",
@@ -35,5 +35,7 @@
             "kiko",
             "tiendanimal"
           ]
-        }
+        },
+        "totalpts": 100
+      }
     

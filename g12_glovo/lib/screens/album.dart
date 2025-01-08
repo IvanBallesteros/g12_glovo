@@ -1,110 +1,79 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
-class AlbumScreen extends StatelessWidget {
+class AlbumScreen extends StatefulWidget {
   const AlbumScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    // Lista de rutas de imágenes
-    final List<String> imagePaths = [
-      'assets/images/locked.png',
-      'assets/images/locked.png',
-      'assets/images/locked.png',
-      'assets/images/dominos.png',
-      'assets/images/locked.png',
-      'assets/images/locked.png',
-      'assets/images/locked.png',
-      'assets/images/locked.png',
-      'assets/images/locked.png',
-      'assets/images/locked.png',
-      'assets/images/locked.png',
-      'assets/images/locked.png',
-      'assets/images/goiko.png',
-      'assets/images/locked.png',
-      'assets/images/McDonalds.png',
-      'assets/images/locked.png',
-      'assets/images/locked.png',
-      'assets/images/locked.png',
-      'assets/images/locked.png',
-      'assets/images/locked.png',
-      'assets/images/locked.png',
-      'assets/images/locked.png',
-      'assets/images/locked.png',
-      'assets/images/locked.png',
-    ];
+  _AlbumScreenState createState() => _AlbumScreenState();
+}
 
+class _AlbumScreenState extends State<AlbumScreen> {
+  List<Map<String, dynamic>> achievements = [];
+
+  @override
+  void initState() {
+    super.initState();
+    loadAchievements();
+  }
+
+  Future<void> loadAchievements() async {
+    final String response = await rootBundle.loadString('lib/json/logro1.json');
+    final data = json.decode(response);
+
+    setState(() {
+      achievements = [
+        ...data['Restaurants'],
+        ...data['Supermercats'],
+        ...data['Botigues']
+      ];
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          color: Colors.white,
-          onPressed: () => Navigator.of(context).pop(),
-        ),
+        backgroundColor: const Color.fromRGBO(255, 194, 68, 1),
         title: const Text(
-          'Els meus restaurants',
-          style: TextStyle(
-            fontFamily: 'Montserrat',
-            fontSize: 20,
-            color: Colors.white,
-          ),
+          'Album',
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Colors.black,
       ),
-      body: Stack(
-        children: [
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image:
-                    AssetImage('assets/images/fusta.png'), // Ruta de tu imagen
-                fit: BoxFit.cover,
+      body: achievements.isEmpty
+          ? const Center(child: CircularProgressIndicator())
+          : Container(
+              decoration: const BoxDecoration(
+                gradient: RadialGradient(
+                  center: Alignment.center,
+                  radius: 0.5,
+                  colors: [
+                    Color.fromRGBO(255, 233, 176, 1), // Amarillo más claro
+                    Color.fromRGBO(255, 194, 68, 1), // Amarillo actual
+                  ],
+                  stops: [0.0, 1.0],
+                ),
+              ),
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  childAspectRatio: 1,
+                ),
+                itemCount: achievements.length,
+                itemBuilder: (context, index) {
+                  final achievement = achievements[index];
+                  final imagePath = achievement['progression'] == 0
+                      ? 'assets/images/logrolocked.png'
+                      : 'assets/images/${achievement['nom']}.png';
+
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset(imagePath),
+                  );
+                },
               ),
             ),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Center(
-                  child: Text(
-                    'ÀLBUM',
-                    style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontSize: 50,
-                      color: Colors.grey[300],
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: GridView.builder(
-                  padding: const EdgeInsets.all(16.0),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4, // Número de columnas
-                    crossAxisSpacing: 10.0,
-                    mainAxisSpacing: 10.0,
-                  ),
-                  itemCount: imagePaths.length, // Número total de fotos
-                  itemBuilder: (context, index) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(
-                              imagePaths[index]), // Ruta de tus imágenes
-                          fit: BoxFit.cover,
-                        ),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
     );
   }
 }

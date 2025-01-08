@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 class RankingScreen extends StatefulWidget {
   const RankingScreen({super.key});
@@ -9,6 +11,79 @@ class RankingScreen extends StatefulWidget {
 
 class _RankingScreenState extends State<RankingScreen> {
   bool isMensualSelected = true;
+  List<Map<String, dynamic>> users = [];
+
+  @override
+  void initState() {
+    super.initState();
+    loadUsers();
+  }
+
+  Future<void> loadUsers() async {
+    final String response = await rootBundle.loadString('lib/json/points.json');
+    final data = json.decode(response);
+
+    setState(() {
+      users = List<Map<String, dynamic>>.from(data['users']);
+    });
+  }
+
+  List<Map<String, dynamic>> getTopUsers() {
+    List<Map<String, dynamic>> sortedUsers = List.from(users);
+    sortedUsers.sort((a, b) => isMensualSelected
+        ? b['mPoints'].compareTo(a['mPoints'])
+        : b['gPoints'].compareTo(a['gPoints']));
+    return sortedUsers.take(10).toList();
+  }
+
+  Color getCardColor(int index) {
+    switch (index) {
+      case 0:
+        return Colors.amber[400]!;
+      case 1:
+        return Colors.grey[400]!;
+      case 2:
+        return Colors.brown[400]!;
+      default:
+        return Colors.black87;
+    }
+  }
+
+  Color getTextColor(int index) {
+    return index < 3 ? Colors.black : Colors.white;
+  }
+
+  Color getCircleColor(int index) {
+    return index < 3 ? Colors.black : Colors.grey;
+  }
+
+  Color getCircleTextColor(int index) {
+    return index < 3 ? Colors.white : Colors.black;
+  }
+
+  BoxDecoration getCardDecoration(int index) {
+    return BoxDecoration(
+      color: getCardColor(index),
+      border: Border.all(
+        color: index < 3 ? Colors.white : Colors.grey,
+        width: 4,
+      ),
+      borderRadius: BorderRadius.circular(8),
+    );
+  }
+
+  double getCardWidth(int index, double maxWidth) {
+    switch (index) {
+      case 0:
+        return maxWidth * 0.95;
+      case 1:
+        return maxWidth * 0.90;
+      case 2:
+        return maxWidth * 0.85;
+      default:
+        return maxWidth * 0.50;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,18 +168,65 @@ class _RankingScreenState extends State<RankingScreen> {
                   ],
                 ),
               )),
-              Image.asset(
-                'assets/images/podium.png',
-                height: 200,
-                width: 200,
-              ),
               const SizedBox(
-                height: 20,
+                height: 15,
               ),
-              const Text(
-                "4. Miquel Gibert\n5. Ivan Ballesteros Felipe\n6. Sergio Delgado\n7. Marc Sardà\n8. Marc Serra\n9. Marc Serra\n10. Marc Serra\n11. Marc Serra\n12. Marc Serra\n13. Marc Serra\n14. Marc Serra\n------------------\n3415. You",
-                style: TextStyle(color: Colors.white),
-              )
+              Expanded(
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    return ListView.builder(
+                      itemCount: getTopUsers().length,
+                      itemBuilder: (context, index) {
+                        final user = getTopUsers()[index];
+                        return Container(
+                          width: getCardWidth(index, constraints.maxWidth),
+                          decoration: getCardDecoration(index),
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 4, horizontal: 8),
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor: getCircleColor(index),
+                              child: Text(
+                                '${index + 1}',
+                                style: TextStyle(
+                                    color: getCircleTextColor(index),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20),
+                              ),
+                            ),
+                            title: Text(
+                              user['nom'],
+                              style: TextStyle(
+                                  color: getTextColor(index),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20),
+                            ),
+                            subtitle: Text(
+                              isMensualSelected
+                                  ? 'Punts totals: ${user['gPoints']}'
+                                  : 'Punts mensuals: ${user['mPoints']}',
+                              style: TextStyle(
+                                  color: getTextColor(index).withOpacity(0.7),
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            trailing: Text(
+                              isMensualSelected
+                                  ? '${user['mPoints']}'
+                                  : '${user['gPoints']}',
+                              style: TextStyle(
+                                color: getTextColor(index),
+                                fontSize: 40,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ));

@@ -1,0 +1,25 @@
+{
+    "users": [
+      { "nom": "Charmander", "mPoints": 42, "gPoints": 97 },
+      { "nom": "Ash", "mPoints": 15, "gPoints": 30 },
+      { "nom": "Pikachu", "mPoints": 75, "gPoints": 120 },
+      { "nom": "Bulbasaur", "mPoints": 10, "gPoints": 25 },
+      { "nom": "Squirtle", "mPoints": 50, "gPoints": 80 },
+      { "nom": "John", "mPoints": 60, "gPoints": 90 },
+      { "nom": "Jane", "mPoints": 35, "gPoints": 70 },
+      { "nom": "Michael", "mPoints": 20, "gPoints": 50 },
+      { "nom": "Sarah", "mPoints": 40, "gPoints": 60 },
+      { "nom": "Laura", "mPoints": 15, "gPoints": 30 },
+      { "nom": "David", "mPoints": 25, "gPoints": 45 },
+      { "nom": "Emily", "mPoints": 30, "gPoints": 50 },
+      { "nom": "Chris", "mPoints": 10, "gPoints": 20 },
+      { "nom": "Anna", "mPoints": 5, "gPoints": 15 },
+      { "nom": "Tom", "mPoints": 45, "gPoints": 90 },
+      { "nom": "Lisa", "mPoints": 25, "gPoints": 40 },
+      { "nom": "Kevin", "mPoints": 35, "gPoints": 85 },
+      { "nom": "Sophia", "mPoints": 10, "gPoints": 30 },
+      { "nom": "Daniel", "mPoints": 50, "gPoints": 100 },
+      { "nom": "Olivia", "mPoints": 20, "gPoints": 40 }
+    ]
+  }
+  

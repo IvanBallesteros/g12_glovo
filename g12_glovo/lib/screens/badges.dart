@@ -22,17 +22,17 @@ class _BadgesScreenState extends State<BadgesScreen> {
 
   Future<void> _loadUserData() async {
     final String jsonString =
-        await rootBundle.loadString('lib/json/comercios.JSON');
+        await rootBundle.loadString('lib/json/comercios.json');
     setState(() {
       _userData = json.decode(jsonString);
+      print(_userData);
     });
   }
 
   Widget _buildBusinessGrid(String category) {
     if (_userData == null) return const CircularProgressIndicator();
 
-    final businesses = _userData!['Usuaris'][0]['comercios'][category] as List;
-
+    final businesses = _userData!['comercios'][category] as List;
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -44,19 +44,23 @@ class _BadgesScreenState extends State<BadgesScreen> {
       ),
       itemCount: businesses.length,
       itemBuilder: (context, index) {
-        final businessName = businesses[index];
+        final business = businesses[index];
         return Container(
-          padding: const EdgeInsets.all(4),
-          width: 40,
-          height: 40,
           decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(color: Colors.grey[300]!, width: 1),
+            border:
+                Border.all(color: Colors.black), // Change border color to black
+            borderRadius: BorderRadius.circular(50), // Make the border circular
           ),
           child: ClipOval(
-            child: Image.asset(
-              'assets/images/${businessName.replaceAll("'", "")}.png',
-              fit: BoxFit.cover,
+            child: Transform.scale(
+              scale: 1.15, // Slight zoom
+              child: Image.asset(
+                'assets/images/${business.toLowerCase()}.png',
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return const Center(child: Icon(Icons.error));
+                },
+              ),
             ),
           ),
         );
@@ -102,6 +106,7 @@ class _BadgesScreenState extends State<BadgesScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: const Color.fromRGBO(255, 194, 68, 1),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -117,27 +122,30 @@ class _BadgesScreenState extends State<BadgesScreen> {
           ),
         ),
       ),
-      body: ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildRestaurantsSection(),
-                const SizedBox(height: 16),
-                const Divider(thickness: 1.5),
-                const SizedBox(height: 16),
-                _buildSupermercatsSection(),
-                const SizedBox(height: 16),
-                const Divider(thickness: 1.5),
-                const SizedBox(height: 16),
-                _buildBotiguesSection(),
-                const SizedBox(height: 20),
-              ],
+      body: Container(
+        color: const Color.fromRGBO(255, 194, 68, 1),
+        child: ListView(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildRestaurantsSection(),
+                  const SizedBox(height: 16),
+                  const Divider(color: Colors.black, thickness: 2),
+                  const SizedBox(height: 16),
+                  _buildSupermercatsSection(),
+                  const SizedBox(height: 16),
+                  const Divider(color: Colors.black, thickness: 2),
+                  const SizedBox(height: 16),
+                  _buildBotiguesSection(),
+                  const SizedBox(height: 20),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

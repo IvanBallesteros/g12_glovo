@@ -1,0 +1,38 @@
+{
+  "Restaurants": [
+    {"nom": "mcdo", "progression": 4},
+    {"nom": "burgerking", "progression": 32},
+    {"nom": "latagliatella", "progression": 32},
+    {"nom": "vicio", "progression": 16},
+    {"nom": "fosters", "progression": 0},
+    {"nom": "goiko", "progression": 64},
+    {"nom": "chalito", "progression": 15},
+    {"nom": "kfc", "progression": 26},
+    {"nom": "tacobell", "progression": 69},
+    {"nom": "fiveguys", "progression": 0}
+  ],
+  "Supermercats": [
+    {"nom": "ametllerorigen", "progression": 0},
+    {"nom": "caprabo", "progression": 26},
+    {"nom": "carrefour", "progression": 51},
+    {"nom": "condis", "progression": 58},
+    {"nom": "sorli", "progression": 36},
+    {"nom": "miscota", "progression": 84},
+    {"nom": "alcampo", "progression": 81},
+    {"nom": "lasirena", "progression": 0},
+    {"nom": "veritas", "progression": 13},
+    {"nom": "calfruitos", "progression": 0}
+  ],
+  "Botigues": [
+    {"nom": "decathlon", "progression": 81},
+    {"nom": "drim", "progression": 0},
+    {"nom": "druni", "progression": 95},
+    {"nom": "flyingtiger", "progression": 0},
+    {"nom": "fnac", "progression": 0},
+    {"nom": "kiwoko", "progression": 40},
+    {"nom": "mediamarkt", "progression": 0},
+    {"nom": "primor", "progression": 0},
+    {"nom": "kiko", "progression": 0},
+    {"nom": "tiendanimal", "progression": 0}
+  ]
+}

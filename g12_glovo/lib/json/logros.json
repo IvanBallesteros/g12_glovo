@@ -1,0 +1,13 @@
+{
+    "logro1": "Compra 5 vegades a l'establiment.",
+    "logro2": "Compra 30 vegades a l'establiment.",
+    "logro3": "Compra 100 vegades a l'establiment.",
+    "logro4": "Compra 250 vegades a l'establiment.",
+    "logro5": "Compra 500 vegades a l'establiment.",
+    "maxlogro1": 5,
+    "maxlogro2": 30,
+    "maxlogro3": 100,
+    "maxlogro4": 250,
+    "maxlogro5": 500
+    
+}
