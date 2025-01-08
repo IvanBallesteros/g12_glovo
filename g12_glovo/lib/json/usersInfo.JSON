@@ -2,72 +2,60 @@
     "ResponseCode": "200 OK",
     "Usuaris": [
       {
-        "id": 12345,
-        "username": "Pikachu",
-        "totalPts": 1345,
-        "monthPts": 146,
-        "comercios": ["McDonald's", "Burger King", "KFC", "Domino's Pizza"]
-      },
-      {
         "id": 12346,
         "username": "Ash",
         "totalPts": 6432,
         "monthPts": 13,
-        "comercios": ["McDonald's", "Burger King", "KFC", "Domino's Pizza"],
+        "comercios": {
+          "Restaurants": [
+            "mcdo",
+            "burgerking",
+            "latagliatella",
+            "vicio",
+            "fosters",
+            "goiko",
+            "chalito",
+            "kfc",
+            "tacobell",
+            "fiveguys"
+          ],
+          "Supermercats": [
+            "ametllerorigen",
+            "caprabo",
+            "carrefour",
+            "condis",
+            "sorli",
+            "miscota",
+            "alcampo",
+            "lasirena",
+            "veritas",
+            "calfruitos"
+          ],
+          "Botigues": [
+            "decathlon",
+            "dominos",
+            "druni",
+            "flyingtiger",
+            "fnac",
+            "kiwoko",
+            "mediamarkt",
+            "primor",
+            "kiko",
+            "tiendanimal"
+          ]
+        },
         "logros": [1, 2, 5, 8, 10],
-        "logro1": [
-          ["McDonald's", 45],
-          ["Burger King", 7]
-        ],
-        "logro2": [
-          ["McDonald's", 2]
-        ],
-        "logro3": 4
-      },
-      {
-        "id": 12347,
-        "username": "Charizard",
-        "totalPts": 788,
-        "monthPts": 23,
-        "comercios": ["McDonald's", "Burger King", "KFC", "Domino's Pizza"],
-        "logros": [1, 2, 5, 8, 10],
-        "logro1": [
-          ["McDonald's", 45],
-          ["Burger King", 7]
-        ],
-        "logro2": [
-          ["McDonald's", 2]
-        ],
-        "logro3": 4
-      
-      },
-      {
-        "id": 12348,
-        "username": "Squirtle",
-        "totalPts": 23489,
-        "monthPts": 577,
-        "comercios": ["McDonald's", "Burger King", "KFC", "Domino's Pizza"],
-        "logros": [1, 2, 5, 8, 10],
-        "logro1": [
-          ["McDonald's", 45],
-          ["Burger King", 7]
-        ],
-        "logro2": [
-          ["McDonald's", 2]
-        ],
-        "logro3": 4
-      },
-      {
-        "id": 12349,
-        "username": "Charmander",
-        "totalPts": 1356723,
-        "monthPts": 647,
-        "comercios": ["McDonald's", "Burger King", "KFC", "Domino's Pizza"], 
-        "logros": [1, 2, 5, 8, 10],
-        "logro1": [
-          ["McDonald's", 45],
-          ["Burger King", 7]
-        ],
+        "logro1": {
+          "Restaurants": {
+            
+          },
+          "Supermercats": {
+            
+          },
+          "Botigues": {
+            
+          }
+        },
         "logro2": [
           ["McDonald's", 2]
         ],

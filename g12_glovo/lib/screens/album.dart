@@ -21,7 +21,7 @@ class AlbumScreen extends StatelessWidget {
       'assets/images/locked.png',
       'assets/images/goiko.png',
       'assets/images/locked.png',
-      'assets/images/mcdo.png',
+      'assets/images/McDonalds.png',
       'assets/images/locked.png',
       'assets/images/locked.png',
       'assets/images/locked.png',

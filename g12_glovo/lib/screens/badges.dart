@@ -1,12 +1,106 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-class BadgesScreen extends StatelessWidget {
+import 'screens.dart';
+
+class BadgesScreen extends StatefulWidget {
   const BadgesScreen({super.key});
+
+  @override
+  _BadgesScreenState createState() => _BadgesScreenState();
+}
+
+class _BadgesScreenState extends State<BadgesScreen> {
+  Map<String, dynamic>? _userData;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    final String jsonString =
+        await rootBundle.loadString('lib/json/usersInfo.JSON');
+    setState(() {
+      _userData = json.decode(jsonString);
+    });
+  }
+
+  Widget _buildBusinessGrid(String category) {
+    if (_userData == null) return const CircularProgressIndicator();
+
+    final businesses = _userData!['Usuaris'][0]['comercios'][category] as List;
+
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 5,
+        crossAxisSpacing: 8,
+        mainAxisSpacing: 8,
+        childAspectRatio: 1.0,
+      ),
+      itemCount: businesses.length,
+      itemBuilder: (context, index) {
+        final businessName = businesses[index];
+        return Container(
+          padding: const EdgeInsets.all(4),
+          width: 40,
+          height: 40,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(color: Colors.grey[300]!, width: 1),
+          ),
+          child: ClipOval(
+            child: Image.asset(
+              'assets/images/${businessName.replaceAll("'", "")}.png',
+              fit: BoxFit.cover,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildRestaurantsSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSection('Restaurants'),
+        _buildBusinessGrid('Restaurants'),
+        _buildViewMoreButton(context, 'Restaurants'),
+      ],
+    );
+  }
+
+  Widget _buildSupermercatsSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSection('Supermercats'),
+        _buildBusinessGrid('Supermercats'),
+        _buildViewMoreButton(context, 'Supermercats'),
+      ],
+    );
+  }
+
+  Widget _buildBotiguesSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSection('Botigues'),
+        _buildBusinessGrid('Botigues'),
+        _buildViewMoreButton(context, 'Botigues'),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      backgroundColor: Colors.white,
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
@@ -30,21 +124,15 @@ class BadgesScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSection('Restaurants'),
-                _buildLogoGrid(),
-                _buildViewMoreButton(),
+                _buildRestaurantsSection(),
                 const SizedBox(height: 16),
                 const Divider(thickness: 1.5),
                 const SizedBox(height: 16),
-                _buildSection('Supermercats'),
-                _buildLogoGrid(),
-                _buildViewMoreButton(),
+                _buildSupermercatsSection(),
                 const SizedBox(height: 16),
                 const Divider(thickness: 1.5),
                 const SizedBox(height: 16),
-                _buildSection('Botigues'),
-                _buildLogoGrid(),
-                _buildViewMoreButton(),
+                _buildBotiguesSection(),
                 const SizedBox(height: 20),
               ],
             ),
@@ -67,67 +155,26 @@ class BadgesScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildLogoGrid() {
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 5,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-        childAspectRatio: 1.2,
-        mainAxisExtent: 70,
-      ),
-      itemCount: 10,
-      itemBuilder: (context, index) {
-        return Container(
-          padding: const EdgeInsets.all(4),
-          child: Container(
-            width: 50,
-            height: 50,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: Colors.grey.shade400),
-              color: Colors.grey[300],
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.2),
-                  spreadRadius: 1,
-                  blurRadius: 3,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-            ),
-            child: ClipOval(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Center(
-                  child: Text(
-                    '?',
-                    style: TextStyle(
-                      color: Colors.grey[700],
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildViewMoreButton() {
+  Widget _buildViewMoreButton(BuildContext context, String category) {
     return Align(
       alignment: Alignment.centerRight,
-      child: TextButton.icon(
+      child: TextButton(
         onPressed: () {
-          // Implementar la acción para ver más
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => VeureMesScreen(title: category),
+            ),
+          );
         },
-        icon: const Icon(Icons.arrow_forward),
-        label: const Text('Veure més'),
+        child: const Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Veure més', style: TextStyle(color: Colors.black)),
+            SizedBox(width: 4),
+            Icon(Icons.arrow_forward, color: Colors.black),
+          ],
+        ),
       ),
     );
   }
