@@ -8,39 +8,25 @@
         "monthPts": 13,
         "comercios": {
           "Restaurants": [
-            "mcdo",
             "burgerking",
-            "latagliatella",
             "vicio",
             "fosters",
-            "goiko",
             "chalito",
             "kfc",
-            "tacobell",
             "fiveguys"
           ],
           "Supermercats": [
-            "ametllerorigen",
             "caprabo",
-            "carrefour",
             "condis",
             "sorli",
-            "miscota",
             "alcampo",
-            "lasirena",
-            "veritas",
-            "calfruitos"
+            "lasirena"
           ],
           "Botigues": [
             "decathlon",
-            "dominos",
             "druni",
-            "flyingtiger",
-            "fnac",
             "kiwoko",
             "mediamarkt",
-            "primor",
-            "kiko",
             "tiendanimal"
           ]
         },
